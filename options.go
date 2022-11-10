@@ -3,13 +3,9 @@ package slacker
 import "github.com/slack-go/slack"
 
 type optionInputBuilder struct {
-	InputBuilder
+	inputBuilder
 	placeholder *slack.TextBlockObject
 	options     []*slack.OptionBlockObject
-}
-
-func (b *optionInputBuilder) Options(object []*slack.OptionBlockObject) {
-	b.options = object
 }
 
 func (b *optionInputBuilder) Build() slack.Block {
@@ -44,6 +40,7 @@ func WithOptionStrings(options ...string) OptionInputBuilderOption {
 func OptionInput(inputOption InputBuilderOption, options ...OptionInputBuilderOption) SlackBlockBuilderProvider {
 	return func() SlackBlockBuilder {
 		builder := &optionInputBuilder{}
+		inputOption(&builder.inputBuilder)
 		return applyOptions(builder, options)
 	}
 }

@@ -10,6 +10,24 @@ func NewViewer(view *slack.View) Viewer {
 	return Viewer{view: view}
 }
 
-func (v *Viewer) Value(key string) {
-	//value, ok := v.view.State.Values[key]
+type BlockAction struct {
+	slack.BlockAction
+}
+
+func (b *BlockAction) SelectedOption() string {
+	return b.BlockAction.SelectedOption.Value
+}
+
+func (v *Viewer) Value(blockId, actionId string) *BlockAction {
+	values, ok := v.view.State.Values[blockId]
+	if !ok {
+		return nil
+	}
+
+	value, ok := values[actionId]
+	if !ok {
+		return nil
+	}
+
+	return &BlockAction{value}
 }
