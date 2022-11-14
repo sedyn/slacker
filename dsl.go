@@ -12,10 +12,11 @@ type SlackBlockBuilder interface {
 
 type SlackBlockBuilderProvider func() SlackBlockBuilder
 
+// Blocks executes SlackBlockBuilderProvider and merges blocks into slack.Blocks
 func Blocks(providers ...SlackBlockBuilderProvider) slack.Blocks {
 	blockSet := make([]slack.Block, len(providers))
-	for i, prov := range providers {
-		blockSet[i] = prov().Build()
+	for i, provider := range providers {
+		blockSet[i] = provider().Build()
 	}
 
 	return slack.Blocks{BlockSet: blockSet}

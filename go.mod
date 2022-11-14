@@ -1,4 +1,4 @@
-module github.com/kylepark/slacker
+module github.com/snpkx/slacker
 
 go 1.18
 

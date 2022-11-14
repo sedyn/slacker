@@ -7,7 +7,7 @@ Simple Slack block builder
 ```go
 package main
 
-import . "github.com/kylepark/slacker"
+import . "github.com/snpkx/slacker"
 
 func main() {
 	blocks := Blocks(
@@ -18,6 +18,29 @@ func main() {
 			WithOptionStrings("A", "B", "C"),
 			WithOptionPlaceholder("alphabets..."),
 		),
+	)
+}
+```
+
+```go
+package main
+
+import . "github.com/snpkx/slacker"
+
+type Metadata struct {
+	Stage int
+}
+
+func main() {
+	metadata := Metadata{
+		Stage: 1,
+	}
+	blocks := ModalViewRequest(
+		Pt("title"), nil, Pt("close"),
+		Blocks(
+			Section(WithTextObj(Pt("text"))),
+		),
+		WithJsonPrivateMetadata(metadata),
 	)
 }
 ```
