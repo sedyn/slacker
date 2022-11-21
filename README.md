@@ -44,3 +44,49 @@ func main() {
 	)
 }
 ```
+
+## Helper
+
+### `Pt`
+
+Same as `slack.NewTextBlockObject(slack.PlainTextType, text, false, false)`
+
+### `Mt`
+
+Same as `slack.NewTextBlockObject(slack.MarkdownType, text, false, false)`
+
+## DSL
+
+### `Blocks`
+
+Run slack block providers and merge blocks into `slack.Blocks`
+
+```go
+Blocks(
+	Section(WithTextObj(Pt("text"))),
+	Section(WithTextObj(Pt("text")))
+)
+```
+
+### `OrBlock`
+
+Select block based on condition
+
+```go
+// Pt("true") will return
+OrBlock(true, Pt("true"), Pt("false"))
+```
+
+### `OrFuncBlock`
+
+Same as above but condition is function.
+
+```go
+OrFuncBlock(func() {
+	return random.Intn(100) & 1 == 0
+}, Pt("Even"), Pt("Odd"))
+```
+
+### `ModalViewRequest`
+
+Build slack.ModalViewRequest
