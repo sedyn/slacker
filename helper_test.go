@@ -13,6 +13,12 @@ func TestPt(t *testing.T) {
 		slack.NewTextBlockObject(slack.PlainTextType, "test", false, false),
 		text,
 	)
+
+	text2 := Pt("test", WithEmoji)
+	assert.Equal(t,
+		slack.NewTextBlockObject(slack.PlainTextType, "test", true, false),
+		text2,
+	)
 }
 
 func TestMt(t *testing.T) {
@@ -20,5 +26,11 @@ func TestMt(t *testing.T) {
 	assert.Equal(t,
 		slack.NewTextBlockObject(slack.MarkdownType, "test", false, false),
 		text,
+	)
+
+	text2 := Mt("test", WithVerbatim)
+	assert.Equal(t,
+		slack.NewTextBlockObject(slack.MarkdownType, "test", false, true),
+		text2,
 	)
 }
