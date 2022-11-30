@@ -35,7 +35,7 @@ func main() {
 	metadata := Metadata{
 		Stage: 1,
 	}
-	blocks := ModalViewRequest(
+	request := ModalViewRequest(
 		Pt("title"), nil, Pt("close"),
 		Blocks(
 			Section(WithTextObj(Pt("text"))),
@@ -47,17 +47,17 @@ func main() {
 
 ## Helper
 
-### `Pt`
+### Pt
 
 Same as `slack.NewTextBlockObject(slack.PlainTextType, text, false, false)`
 
-### `Mt`
+### Mt
 
 Same as `slack.NewTextBlockObject(slack.MarkdownType, text, false, false)`
 
 ## DSL
 
-### `Blocks`
+### Blocks
 
 Run slack block providers and merge blocks into `slack.Blocks`
 
@@ -68,7 +68,7 @@ Blocks(
 )
 ```
 
-### `OrBlock`
+### OrBlock
 
 Select block based on condition
 
@@ -77,7 +77,7 @@ Select block based on condition
 OrBlock(true, Pt("true"), Pt("false"))
 ```
 
-### `OrFuncBlock`
+### OrFuncBlock
 
 Same as above but condition is function.
 
@@ -87,6 +87,6 @@ OrFuncBlock(func() {
 }, Pt("Even"), Pt("Odd"))
 ```
 
-### `ModalViewRequest`
+### ModalViewRequest
 
 Build slack.ModalViewRequest
